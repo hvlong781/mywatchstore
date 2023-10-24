@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
 
 Auth::routes();
@@ -12,6 +12,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['admin'])->group(function () {
-    Route::get('/admin_dashboard', [AdminController::class, 'index']);
-    // Các route khác dành cho admin
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+    });
 });
