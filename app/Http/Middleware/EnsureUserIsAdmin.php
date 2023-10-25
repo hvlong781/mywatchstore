@@ -13,13 +13,13 @@ class EnsureUserIsAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
         if (auth()->user() && auth()->user()->role == 'admin') {
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/')->with('error', 'You do not have permission to access this page.');
 
     }
 }
