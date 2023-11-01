@@ -14,3 +14,4 @@
 <!-- Custom js for this page-->
 <script src="/template/admin/js/chart.js"></script>
 <!-- End custom js for this page-->
+<script src="/template/admin/main.js"></script>

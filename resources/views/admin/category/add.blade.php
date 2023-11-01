@@ -1,15 +1,8 @@
-@extends('admin.main')
-
-@section('head')
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-
-{{--<script src="//cdn.ckeditor.com/4.23.0-lts/full/ckeditor.js"></script>--}}
-@endsection
+@extends('admin.master')
 
 @section('content')
     <form action="" method="POST">
         <div class="card-body">
-
             <div class="form-group">
                 <label for="menu">Tên danh mục</label>
                 <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Nhập tên danh mục">
@@ -19,20 +12,15 @@
                 <label>Danh mục</label>
                 <select class="form-control" name="parent_id">
                     <option value="0">Danh mục cha</option>
-                    @foreach($menus as $menu)
-                        <option value="{{ $menu->id }}">{{ $menu->name }}</option>
-                    @endforeach
+{{--                    @foreach($menus as $category)--}}
+{{--                        <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
+{{--                    @endforeach--}}
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Mô tả</label>
                 <textarea name="description" class="form-control">{{ old('description') }}</textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Mô tả chi tiết</label>
-                <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
             </div>
 
             <div class="form-group">
@@ -56,19 +44,4 @@
 
         @csrf
     </form>
-@endsection
-
-@section('footer')
-{{--    <script>--}}
-{{--        CKEDITOR.replace('content');--}}
-{{--    </script>--}}
-
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#content' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-
 @endsection

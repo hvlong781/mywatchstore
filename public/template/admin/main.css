@@ -1,0 +1,7 @@
+.nav-profile.navv-profile a:hover {
+    background-color: transparent !important; /* Đặt màu nền là trong suốt khi rê chuột vào */
+}
+
+.nav-profile-text {
+    margin-left: 10px;
+}

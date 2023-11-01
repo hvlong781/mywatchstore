@@ -1,7 +1,6 @@
 @extends('admin.master')
 
 @section('content')
-
-        <h4>Admin here</h4>
+        <h4>Dashboard</h4>
 
 @endsection

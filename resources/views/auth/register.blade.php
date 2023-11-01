@@ -6,10 +6,20 @@
             <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                     <div class="brand-logo">
-                        <img src="/admin/images/logo.svg" alt="logo">
+                        <img src="/template/admin/images/logo.svg" alt="logo">
                     </div>
                     <h4>New here?</h4>
                     <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form class="pt-3" method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -38,14 +48,14 @@
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                   name="password" required autocomplete="new-password"
+                                   name="password" required
                                    id="password" placeholder="Password">
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
                                 <input id="password-confirm" type="password" placeholder="Vui lòng nhập lại mật khẩu"
-                                       class="form-control form-control-lg" name="password_confirmation" required autocomplete="new-password">
+                                       class="form-control form-control-lg" name="password_confirmation" required>
                             </div>
                         </div>
 
