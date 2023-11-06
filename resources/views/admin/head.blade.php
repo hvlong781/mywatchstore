@@ -4,7 +4,8 @@
 <title>{{ $title }}</title>
 
 <!-- CSRF Token -->
-<meta name="_token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 <!-- plugins:css -->
 <link rel="stylesheet" href="/template/admin/vendors/feather/feather.css">
@@ -17,4 +18,4 @@
 <link rel="stylesheet" href="/template/admin/css/vertical-layout-light/style.css">
 <!-- endinject -->
 <link rel="shortcut icon" href="/template/admin/images/favicon.png" />
-<link rel="stylesheet" href="/template/admin/main.css">
+<link rel="stylesheet" href="/template/admin/css/main.css">

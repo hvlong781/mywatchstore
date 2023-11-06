@@ -6,7 +6,6 @@ $.ajaxSetup({
 
 function removeRow(id, url)
 {
-    console.log(url); // Kiểm tra giá trị của biến url
     if (confirm('Bạn chắc chắn muốn xóa?')) {
         $.ajax({
             type: 'DELETE',
@@ -26,26 +25,30 @@ function removeRow(id, url)
 }
 
 /* Upload File */
+// $('#upload').change(function (){
+//     const form = new FormData();
+//     form.append('file', $(this)[0].files[0]);
+//
+//     $.ajax({
+//         processData: false,
+//         contentType: false,
+//         type: 'POST',
+//         dataType: 'JSON',
+//         data: form,
+//         url: '/admin/upload/services',
+//         success: function (results) {
+//             if (results.error === false) {
+//                 $('#image_show').html('<a href="' + results.url + '" target="_blank">' +
+//                     '<img src="' + results.url + '" width="150px" alt="ERROR"></a>');
+//
+//                 $('#image').val(results.url);
+//             } else {
+//                 alert('Upload file lỗi!');
+//             }
+//         }
+//     });
+// });
+
 $('#upload').change(function (){
-    const form = new FormData();
-    form.append('file', $(this)[0].files[0]);
-
-    $.ajax({
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        dataType: 'JSON',
-        data: form,
-        url: '/admin/upload/services',
-        success: function (results) {
-            if (results.error === false) {
-                $('#image_show').html('<a href="' + results.url + '" target="_blank">' +
-                    '<img src="' + results.url + '" width="150px" alt="ERROR"></a>');
-
-                $('#thumb').val(results.url);
-            } else {
-                alert('Upload file lỗi!');
-            }
-        }
-    });
+    console.log(123);
 });

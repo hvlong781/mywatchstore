@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.master')
 
 @section('content')
     <table class="table">
@@ -7,8 +7,8 @@
             <th style="width: 50px">ID</th>
             <th style="width: 350px">Tên sản phẩm</th>
             <th>Danh mục</th>
+            <th>Hãng</th>
             <th>Giá gốc</th>
-            <th>Giá khuyến mãi</th>
             <th>Trạng thái</th>
             <th>Cập nhật</th>
             <th style="width: 100px">&nbsp;</th>
@@ -20,19 +20,19 @@
             <tr>
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->menu->name }}</td>
+                <td>{{ $product->category->name }}</td>
+                <td>{{ $product->brand->name }}</td>
                 <td>{{ $product->price }}</td>
-                <td>{{ $product->price_sale }}</td>
                 <td>{!! \App\Helpers\Helper::active($product->active) !!}</td>
                 <td>{{ $product->updated_at }}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="/admin/products/edit/{{ $product->id }}">
-                        <i class="fas fa-edit"></i>
+                    <a class="btn btn-primary btn-xs" href="/admin/products/edit/{{ $product->id }}">
+                        <i class="ti-pencil-alt"></i>
                     </a>
 
-                    <a class="btn btn-danger btn-sm" href="#"
+                    <a class="btn btn-danger btn-xs" href="#"
                        onclick="removeRow({{ $product->id }},  '/admin/products/destroy')">
-                        <i class="fas fa-trash"></i>
+                        <i class="ti-trash"></i>
                     </a>
                 </td>
             </tr>

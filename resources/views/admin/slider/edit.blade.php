@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.master')
 
 @section('content')
     <form action="" method="POST">
@@ -20,19 +20,19 @@
             </div>
 
             <div class="form-group">
-                <label>Hình ảnh</label>
-                <input type="file" name="file" id="upload" class="form-control">
-                <div id="image_show">
-                    <a href="{{ $slider->thumb }}" target="_blank">
-                        <img src="{{ $slider->thumb }}" width="100px">
-                    </a>
-                </div>
-                <input type="hidden" value="{{ $slider->thumb }}" name="thumb" id="thumb">
+                <label>Sắp xếp</label>
+                <input type="number" value="{{ $slider->sort_by }}" class="form-control" name="sort_by" placeholder="">
             </div>
 
             <div class="form-group">
-                <label>Sắp xếp</label>
-                <input type="number" value="{{ $slider->sort_by }}" class="form-control" name="sort_by" placeholder="">
+                <label>Hình ảnh</label>
+                <input type="file" name="file" id="upload" class="form-control">
+                <div id="image_show">
+                    <a href="{{ $slider->image }}" target="_blank">
+                        <img src="{{ $slider->image }}" width="100px">
+                    </a>
+                </div>
+                <input type="hidden" value="{{ $slider->image }}" name="image" id="image">
             </div>
 
             <div class="form-group">

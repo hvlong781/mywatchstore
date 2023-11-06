@@ -1,8 +1,4 @@
-@extends('admin.main')
-
-@section('head')
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-@endsection
+@extends('admin.master')
 
 @section('content')
     <form action="" method="POST">
@@ -17,12 +13,8 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Danh mục</label>
-                        <select class="form-control" name="menu_id">
-                            @foreach($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>
-                            @endforeach
-                        </select>
+                        <label>Giá sản phẩm</label>
+                        <input type="number" value="{{ old('price') }}" class="form-control" name="price" placeholder="Nhập giá sản phẩm">
                     </div>
                 </div>
             </div>
@@ -30,15 +22,23 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Giá sản phẩm</label>
-                        <input type="number" value="{{ old('price') }}" class="form-control" name="price" placeholder="Nhập giá sản phẩm">
+                        <label>Danh mục</label>
+                        <select class="form-control" name="category_id">
+                            @foreach($menus as $menu)
+                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Giá giảm</label>
-                        <input type="number" value="{{ old('price_sale') }}" class="form-control" name="price_sale" placeholder="Nhập giá sản phẩm đã giảm">
+                        <label>Thương hiệu</label>
+                        <select class="form-control" name="brand_id">
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div id="image_show">
 
                 </div>
-                <input type="hidden" name="thumb" id="thumb">
+                <input type="hidden" name="image" id="image">
             </div>
 
             <div class="form-group">
@@ -83,14 +83,4 @@
 
         @csrf
     </form>
-@endsection
-
-@section('footer')
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#content' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 @endsection

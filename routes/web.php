@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandAdminController;
+use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ProfileAdminController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryAdminController;
-
-Route::get('/', function () {
-    return view('main');
-});
+use App\Http\Controllers\Admin\ProductAdminController;
 
 Auth::routes();
 
@@ -38,7 +41,7 @@ Route::middleware(['admin'])->group(function () {
         });
 
         #Category
-        Route::prefix('menus')->group(function () {
+        Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryAdminController::class, 'index']);
             Route::get('add-menu', [CategoryAdminController::class, 'create']);
             Route::post('add-menu', [CategoryAdminController::class, 'store']);
@@ -48,32 +51,70 @@ Route::middleware(['admin'])->group(function () {
             Route::DELETE('destroy', [CategoryAdminController::class, 'destroy']);
         });
 
-//        #Product
-//        Route::prefix('products')->group(function () {
-//            Route::get('/', [ProductController::class, 'index']);
-//            Route::get('add', [ProductController::class, 'create']);
-//            Route::post('add', [ProductController::class, 'store']);
-//            Route::get('list', [ProductController::class, 'index']);
-//            Route::get('edit/{product}', [ProductController::class, 'show']);
-//            Route::post('edit/{product}', [ProductController::class, 'update']);
-//            Route::DELETE('destroy', [ProductController::class, 'destroy']);
-//        });
-//
-//        #Slider
-//        Route::prefix('sliders-admin')->group(function () {
-//            Route::get('/', [SliderController::class, 'index']);
-//            Route::get('add', [SliderController::class, 'create']);
-//            Route::post('add', [SliderController::class, 'store']);
-//            Route::get('list', [SliderController::class, 'index']);
-//            Route::get('edit/{slider}', [SliderController::class, 'show']);
-//            Route::post('edit/{slider}', [SliderController::class, 'update']);
-//            Route::DELETE('destroy', [SliderController::class, 'destroy']);
-//        });
-//
-//        #Upload
-//        Route::post('upload/services', [UploadController::class, 'store']);
+        #Brand
+        Route::prefix('brands')->group(function () {
+            Route::get('/', [BrandAdminController::class, 'index']);
+            Route::get('add-brand', [BrandAdminController::class, 'create']);
+            Route::post('add-brand', [BrandAdminController::class, 'store']);
+            Route::get('list-brand', [BrandAdminController::class, 'index']);
+            Route::get('edit/{brand}', [BrandAdminController::class, 'show']);
+            Route::post('edit/{brand}', [BrandAdminController::class, 'update']);
+            Route::DELETE('destroy/{brand}', [BrandAdminController::class, 'destroy']);
+        });
+
+        #Product
+        Route::prefix('products')->group(function () {
+            Route::get('/', [ProductAdminController::class, 'index']);
+            Route::get('add-product', [ProductAdminController::class, 'create']);
+            Route::post('add-product', [ProductAdminController::class, 'store']);
+            Route::get('list-product', [ProductAdminController::class, 'index']);
+            Route::get('edit/{product}', [ProductAdminController::class, 'show']);
+            Route::post('edit/{product}', [ProductAdminController::class, 'update']);
+            Route::DELETE('destroy', [ProductAdminController::class, 'destroy']);
+        });
+
+        #Slider
+        Route::prefix('sliders')->group(function () {
+            Route::get('/', [SliderController::class, 'index']);
+            Route::get('add-slider', [SliderController::class, 'create']);
+            Route::post('add-slider', [SliderController::class, 'store']);
+            Route::get('list-slider', [SliderController::class, 'index']);
+            Route::get('edit/{slider}', [SliderController::class, 'show']);
+            Route::post('edit/{slider}', [SliderController::class, 'update']);
+            Route::DELETE('destroy', [SliderController::class, 'destroy']);
+        });
+
+        #Upload
+        Route::post('upload/services', [UploadController::class, 'store']);
+
+        #Order
+        Route::prefix('orders')->group(function () {
+            Route::get('/', [OrderAdminController::class, 'index']);
+            Route::get('add-slider', [OrderAdminController::class, 'create']);
+            Route::post('add-slider', [OrderAdminController::class, 'store']);
+            Route::get('list-slider', [OrderAdminController::class, 'index']);
+            Route::get('edit/{slider}', [OrderAdminController::class, 'show']);
+            Route::post('edit/{slider}', [OrderAdminController::class, 'update']);
+            Route::DELETE('destroy', [OrderAdminController::class, 'destroy']);
+        });
     });
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [MainController::class, 'index'])->name('home');
+//Route::get('/home', [MainController::class, 'index'])->name('home');
+
+Route::post('/services/load-product', [MainController::class, 'loadProduct']);
+
+Route::get('danh-muc/{id}-{slug}.html', [\App\Http\Controllers\MenuController::class, 'index']);
+Route::get('san-pham/{id}-{slug}.html', [\App\Http\Controllers\ProductController::class, 'index']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('add-cart', [CartController::class, 'index']);
+    Route::get('carts', [CartController::class, 'show']);
+    Route::post('update-cart', [CartController::class, 'update']);
+    Route::get('carts/delete/{id}', [CartController::class, 'remove']);
+
+
+    Route::post('carts', [CartController::class, 'placeOrder']);
+});

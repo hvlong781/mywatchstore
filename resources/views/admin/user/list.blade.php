@@ -43,6 +43,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="card-footer clearfix">
+            {!! $users->links() !!}
+        </div>
     </div>
 
     <script>

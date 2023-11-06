@@ -12,15 +12,24 @@
                 <label>Danh mục</label>
                 <select class="form-control" name="parent_id">
                     <option value="0">Danh mục cha</option>
-{{--                    @foreach($menus as $category)--}}
-{{--                        <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
-{{--                    @endforeach--}}
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Mô tả</label>
                 <textarea name="description" class="form-control">{{ old('description') }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Ảnh sản phẩm</label>
+                <input type="file" name="file" id="upload" class="form-control">
+                <div id="image_show">
+
+                </div>
+                <input type="hidden" name="image" id="image">
             </div>
 
             <div class="form-group">

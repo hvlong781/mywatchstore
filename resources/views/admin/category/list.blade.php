@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.master')
 
 @section('content')
     <table class="table">
@@ -13,7 +13,7 @@
         </thead>
 
         <tbody>
-            {!! \app\Helpers\Helper::menu($menus) !!}
+            {!! \app\Helpers\Helper::category($categories) !!}
         </tbody>
     </table>
 @endsection

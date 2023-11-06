@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.master')
 
 @section('content')
     <table class="table">
@@ -20,20 +20,20 @@
                 <td>{{ $slider->id }}</td>
                 <td>{{ $slider->name }}</td>
                 <td>{{ $slider->url }}</td>
-                <td><a href="{{ $slider->thumb }}" target="_blank">
-                        <img src="{{ $slider->thumb }}" height="45px">
+                <td><a href="{{ $slider->image }}" target="_blank">
+                        <img src="{{ $slider->image }}" height="45px">
                     </a>
                 </td>
                 <td>{!! \App\Helpers\Helper::active($slider->active) !!}</td>
                 <td>{{ $slider->updated_at }}</td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="/admin/sliders/edit/{{ $slider->id }}">
-                        <i class="fas fa-edit"></i>
+                        <i class="ti-pencil-alt"></i>
                     </a>
 
                     <a class="btn btn-danger btn-sm" href="#"
                        onclick="removeRow({{ $slider->id }},  '/admin/sliders/destroy')">
-                        <i class="fas fa-trash"></i>
+                        <i class="ti-trash"></i>
                     </a>
                 </td>
             </tr>

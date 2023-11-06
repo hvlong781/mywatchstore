@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $customers = User::where('role', 'customer')->get();
+        $customers = User::where('role', 'customer')->orderByDesc('id')->paginate(15);
         return view('admin.user.list', [
             'title' => 'Danh Sách Tài Khoản Người Dùng',
             'users' => $customers,

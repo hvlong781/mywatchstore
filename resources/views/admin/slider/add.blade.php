@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.master')
 
 @section('content')
     <form action="" method="POST">
@@ -6,14 +6,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="product">Tiêu đề</label>
+                        <label for="slider">Tiêu đề</label>
                         <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Nhập tiêu đề">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="product">Đường dẫn</label>
+                        <label for="slider">Đường dẫn</label>
                         <input type="text" value="{{ old('url') }}" class="form-control" name="url" placeholder="Nhập đường dẫn">
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <div id="image_show">
 
                 </div>
-                <input type="hidden" name="thumb" id="thumb">
+                <input type="hidden" name="image" id="image">
             </div>
 
             <div class="form-group">

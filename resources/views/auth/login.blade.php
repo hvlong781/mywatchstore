@@ -17,7 +17,7 @@
                             <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
                                     id="email" name="email"
                                     value="{{ old('email') }}" required autocomplete="email"
-                                    autofocus placeholder="Username"
+                                    autofocus placeholder="Email"
                             >
                             @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror"
                                    id="password" name="password"
                                    required autocomplete="current-password"
-                                   placeholder="Password">
+                                   placeholder="Mật khẩu">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -37,38 +37,38 @@
                             @enderror
                         </div>
                         <div class="mt-3 form-group">
-                            <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                            <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Đăng Nhập</button>
                         </div>
                         <div class="my-2 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <label class="form-check-label text-muted">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    Remember Me
+                                    Nhớ mật khẩu
                                 </label>
                             </div>
                             @if (Route::has('password.request'))
                                 <a class="text-small auth-link forgot-password text-black" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                    {{ __('Quên mật khẩu?') }}
                                 </a>
                             @endif
                         </div>
 
                         <div class="form-group mb-2">
                             <button type="button" class="btn btn-block btn-google auth-form-btn g-login">
-                                <i class="ti-google mr-2"></i>Log in with Google
+                                <i class="ti-google mr-2"></i>Google
                             </button>
                         </div>
 
                         <div class="mb-2">
                             <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                                <i class="ti-facebook mr-2"></i>Connect using facebook
+                                <i class="ti-facebook mr-2"></i>Facebook
                             </button>
                         </div>
 
                         <div class="text-center mt-4 font-weight-light">
-                            Don't have an account?
+                            Bạn chưa có tài khoản?
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-primary">Create new account</a>
+                                <a href="{{ route('register') }}" class="text-primary">Đăng ký tài khoản</a>
                             @endif
                         </div>
                     </form>
