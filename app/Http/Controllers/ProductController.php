@@ -29,4 +29,15 @@ class ProductController extends Controller
             'menus' => $this->categoryService->show(),
         ]);
     }
+
+    public function show(Request $request)
+    {
+        $products = $this->productService->getProduct($request);
+
+        return view('products.show', [
+            'title' => 'Tất cả sản phẩm',
+            'menus' => $this->categoryService->show(),
+            'products' => $products,
+        ]);
+    }
 }

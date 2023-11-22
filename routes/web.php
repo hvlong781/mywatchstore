@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
@@ -90,12 +91,10 @@ Route::middleware(['admin'])->group(function () {
         #Order
         Route::prefix('orders')->group(function () {
             Route::get('/', [OrderAdminController::class, 'index']);
-            Route::get('add-slider', [OrderAdminController::class, 'create']);
-            Route::post('add-slider', [OrderAdminController::class, 'store']);
-            Route::get('list-slider', [OrderAdminController::class, 'index']);
-            Route::get('edit/{slider}', [OrderAdminController::class, 'show']);
-            Route::post('edit/{slider}', [OrderAdminController::class, 'update']);
-            Route::DELETE('destroy', [OrderAdminController::class, 'destroy']);
+            Route::get('list-order', [OrderAdminController::class, 'index']);
+            Route::get('view-detail/{order}', [OrderAdminController::class, 'show']);
+            Route::put('edit/{order}', [OrderAdminController::class, 'update']);
+//            Route::DELETE('destroy', [OrderAdminController::class, 'destroy']);
         });
     });
 });
@@ -103,6 +102,7 @@ Route::middleware(['admin'])->group(function () {
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 //Route::get('/home', [MainController::class, 'index'])->name('home');
+Route::get('/products', [\App\Http\Controllers\ProductController::class, 'show']);
 
 Route::post('/services/load-product', [MainController::class, 'loadProduct']);
 
@@ -112,9 +112,14 @@ Route::get('san-pham/{id}-{slug}.html', [\App\Http\Controllers\ProductController
 Route::middleware(['auth'])->group(function () {
     Route::post('add-cart', [CartController::class, 'index']);
     Route::get('carts', [CartController::class, 'show']);
+    Route::post('carts', [CartController::class, 'placeOrder']);
     Route::post('update-cart', [CartController::class, 'update']);
     Route::get('carts/delete/{id}', [CartController::class, 'remove']);
 
-
-    Route::post('carts', [CartController::class, 'placeOrder']);
+    #Order
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index']);
+        Route::get('view-detail/{order}', [OrderController::class, 'show']);
+        Route::post('view-detail/{order}/cancel', [OrderController::class, 'cancel']);
+    });
 });

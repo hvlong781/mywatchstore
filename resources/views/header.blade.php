@@ -1,3 +1,8 @@
+<style>
+    .nav-profile .nav-link::after {
+        content: none; /* This will remove the caret */
+    }
+</style>
 <header>
     @php $menusHtml = \App\Helpers\Helper::menus($menus); @endphp
     <!-- Header desktop -->
@@ -17,10 +22,15 @@
                         <li class="active-menu">
                             <a href="/">Trang Chủ</a>
                         </li>
+
+                        <li>
+                            <a href="/products">Sản phẩm</a>
+                        </li>
+
                         {!! $menusHtml !!}
 
                         <li>
-                            <a href="/carts">Giỏ hàng</a>
+                            <a href="/orders">Đơn hàng</a>
                         </li>
 
                         <li>
@@ -28,7 +38,7 @@
                         </li>
 
                         <li>
-                            <a href="contact.html">Liên hệ</a>
+                            <a href="/contacts">Liên hệ</a>
                         </li>
                     </ul>
                 </div>
@@ -56,14 +66,14 @@
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                     <a class="dropdown-item">
                                         <i class="ti-settings text-primary"></i>
-                                        Settings
+                                        Trang Cá Nhân
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                         <i class="ti-power-off text-primary"></i>
-                                        {{ __('Log out') }}
+                                        {{ __('Đăng Xuất') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -71,7 +81,27 @@
                                     </form>
                                 </div>
                                 @else
-                                    <a class="btn btn-light ml-4" href="{{ route('login') }}">Đăng Nhập</a>
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                        <img src="/template/admin/images/faces/face28.jpg"
+                                             style="width: 40px; height: 40px; border-radius: 100%"
+                                             alt="profile"/>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                        <a class="dropdown-item" href="/">
+                                            <i class="ti-settings text-primary"></i>
+                                            Trang Chủ
+                                        </a>
+
+                                        <a class="dropdown-item" href="/products">
+                                            <i class="ti-settings text-primary"></i>
+                                            Sản Phẩm
+                                        </a>
+
+                                        <a class="dropdown-item" href="{{ route('login') }}">
+                                            <i class="ti-power-off text-primary"></i>
+                                            {{ __('Đăng Nhập') }}
+                                        </a>
+                                    </div>
                             @endauth
                         </div>
                     @endif
@@ -116,7 +146,7 @@
             {!! $menusHtml !!}
 
             <li>
-                <a href="/carts">Giỏ hàng</a>
+                <a href="/orders">Đơn hàng</a>
             </li>
 
             <li>

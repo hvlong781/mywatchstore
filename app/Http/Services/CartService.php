@@ -177,7 +177,8 @@ class CartService
             $order->total_price = $request->total_price;
             $order->message = $request->message;
 //            $order->invoice_number = uniqid();
-            $order->invoice_number = 'INV-' . mt_rand(10000, 99999);
+//            $order->invoice_number = 'INV-' . mt_rand(10000, 99999);
+            $order->invoice_number = 'INV-' . time() . '-' . mt_rand(1000, 9999);
             $order->save();
 
             $productId = array_keys($carts);
