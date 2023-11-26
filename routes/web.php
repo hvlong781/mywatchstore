@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryAdminController;
 use App\Http\Controllers\Admin\ProductAdminController;
+use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\PurchaseOrderController;
 
 Auth::routes();
 
@@ -96,6 +98,25 @@ Route::middleware(['admin'])->group(function () {
             Route::put('edit/{order}', [OrderAdminController::class, 'update']);
 //            Route::DELETE('destroy', [OrderAdminController::class, 'destroy']);
         });
+
+        #Supplier
+        Route::prefix('suppliers')->group(function () {
+            Route::get('/', [SupplierController::class, 'index']);
+            Route::get('add-supplier', [SupplierController::class, 'create']);
+            Route::post('add-supplier', [SupplierController::class, 'store']);
+            Route::get('edit/{supplier}', [SupplierController::class, 'show']);
+            Route::post('edit/{supplier}', [SupplierController::class, 'update']);
+            Route::DELETE('destroy/{supplier}', [SupplierController::class, 'destroy']);
+        });
+
+        #PurchaseOrder
+        Route::prefix('purchase')->group(function () {
+            Route::get('/', [PurchaseOrderController::class, 'index']);
+            Route::get('detail/{purchase}', [PurchaseOrderController::class, 'show']);
+            Route::get('add-purchase', [PurchaseOrderController::class, 'create']);
+            Route::post('add-purchase', [PurchaseOrderController::class, 'store']);
+            Route::DELETE('destroy/{purchase}', [PurchaseOrderController::class, 'destroy']);
+        });
     });
 });
 
@@ -109,7 +130,7 @@ Route::post('/services/load-product', [MainController::class, 'loadProduct']);
 Route::get('danh-muc/{id}-{slug}.html', [\App\Http\Controllers\MenuController::class, 'index']);
 Route::get('san-pham/{id}-{slug}.html', [\App\Http\Controllers\ProductController::class, 'index']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('add-cart', [CartController::class, 'index']);
     Route::get('carts', [CartController::class, 'show']);
     Route::post('carts', [CartController::class, 'placeOrder']);
@@ -122,4 +143,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('view-detail/{order}', [OrderController::class, 'show']);
         Route::post('view-detail/{order}/cancel', [OrderController::class, 'cancel']);
     });
+
+    Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile']);
+    Route::post('/profile/update', [\App\Http\Controllers\UserController::class, 'update']);
 });

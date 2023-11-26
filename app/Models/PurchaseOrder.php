@@ -20,7 +20,7 @@ class PurchaseOrder extends Model
         return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
-    public function purchaseOrderDetails()
+    public function details()
     {
         return $this->hasMany(PurchaseOrderDetail::class);
     }

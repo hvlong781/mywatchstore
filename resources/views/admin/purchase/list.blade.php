@@ -15,18 +15,17 @@
         <tbody>
         @foreach($purchase as $purchaseOrder)
             <tr>
+                <td>{{ $purchaseOrder->id }}</td>
                 <td>{{ $purchaseOrder->supplier->name }}</td>
-                <td>{{ $purchaseOrder->total_price }}</td>
+                <td>{{ number_format($purchaseOrder->total_price, 0, '', '.') }}</td>
+                <td>{{ $purchaseOrder->updated_at }}</td>
                 <td>
-                    <a href="{{ route('purchase_orders.show', $purchaseOrder->id) }}" class="btn btn-info">View Details</a>
-
-
-                    <a class="btn btn-primary btn-xs" href="/admin/products/edit/{{ $purchaseOrder->id }}">
-                        <i class="ti-pencil-alt"></i>
+                    <a href="/admin/purchase/detail/{{ $purchaseOrder->id }}" class="btn btn-primary btn-xs">
+                        <i class="ti-eye"></i>
                     </a>
 
                     <a class="btn btn-danger btn-xs" href="#"
-                       onclick="removeRow({{ $purchaseOrder->id }},  '/admin/products/destroy')">
+                       onclick="removeRow({{ $purchaseOrder->id }},  '/admin/purchase/destroy')">
                         <i class="ti-trash"></i>
                     </a>
                 </td>
@@ -35,7 +34,7 @@
         </tbody>
     </table>
     <div class="card-footer clearfix">
-        {!! $products->links() !!}
+        {!! $purchase->links() !!}
     </div>
 
 @endsection

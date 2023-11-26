@@ -28,7 +28,7 @@ class BrandAdminController extends Controller
     public function create()
     {
         return view('admin.brand.add', [
-            'title' => 'Thêm Danh Mục',
+            'title' => 'Thêm Thương Hiệu',
         ]);
     }
 

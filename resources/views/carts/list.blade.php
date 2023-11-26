@@ -2,10 +2,11 @@
 
 @section('content')
     <form class="bg0 p-t-130 p-b-85" method="post">
-        @include('admin.alert')
 
         @if (count($products) != 0)
             <div class="container">
+                @include('admin.alert')
+
                 <div class="row">
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -154,7 +155,11 @@
             </div>
     </form>
     @else
-        <div class="text-center p-b-15"><h2>Giỏ hàng trống</h2></div>
+        <div class="container">
+            @include('admin.alert')
+
+            <div class="text-center p-b-15"><h2>Giỏ hàng trống</h2></div>
+        </div>
     @endif
 @endsection
 

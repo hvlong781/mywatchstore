@@ -6,6 +6,7 @@
         <tr>
             <th style="width: 50px">ID</th>
             <th style="width: 350px">Tên sản phẩm</th>
+            <th>Số lượng</th>
             <th>Danh mục</th>
             <th>Hãng</th>
             <th>Giá gốc</th>
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->quantity }}</td>
                 <td>{{ $product->category->name }}</td>
                 <td>{{ $product->brand->name }}</td>
                 <td>{{ $product->price }}</td>

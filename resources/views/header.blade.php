@@ -27,7 +27,18 @@
                             <a href="/products">Sản phẩm</a>
                         </li>
 
-                        {!! $menusHtml !!}
+
+
+                        <li>
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Danh Mục
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {!! $menusHtml !!}
+                                </div>
+                            </div>
+                        </li>
 
                         <li>
                             <a href="/orders">Đơn hàng</a>
@@ -59,12 +70,12 @@
                         <div class="nav-item nav-profile dropdown">
                             @auth
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                    <img src="/template/admin/images/faces/face28.jpg"
+                                    <img src="storage/{{ auth()->user()->avatar }}"
                                          style="width: 40px; height: 40px; border-radius: 100%"
                                          alt="profile"/>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                    <a class="dropdown-item">
+                                    <a class="dropdown-item" href="/profile">
                                         <i class="ti-settings text-primary"></i>
                                         Trang Cá Nhân
                                     </a>
@@ -82,7 +93,7 @@
                                 </div>
                                 @else
                                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                        <img src="/template/admin/images/faces/face28.jpg"
+                                        <img src="storage/{{ auth()->user()->avatar }}"
                                              style="width: 40px; height: 40px; border-radius: 100%"
                                              alt="profile"/>
                                     </a>

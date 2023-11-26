@@ -5,31 +5,31 @@
         <thead>
         <tr>
             <th style="width: 50px">ID</th>
-            <th>Tên thương hiệu</th>
-            <th>Quốc gia</th>
-            <th>Năm thành lập</th>
-            <th>Trạng thái</th>
+            <th>Tên nhà cung cấp</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
             <th>Cập nhật</th>
             <th style="width: 100px">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($brands as $brand)
+        @foreach($suppliers as $supplier)
             <tr>
-                <td>{{ $brand->id }}</td>
-                <td>{{ $brand->name }}</td>
-                <td>{{ $brand->country }}</td>
-                <td>{{ $brand->founded_year }}</td>
-                <td>{!! \App\Helpers\Helper::active($brand->active) !!}</td>
-                <td>{{ $brand->updated_at }}</td>
+                <td>{{ $supplier->id }}</td>
+                <td>{{ $supplier->name }}</td>
+                <td>{{ $supplier->address }}</td>
+                <td>{{ $supplier->phone }}</td>
+                <td>{{ $supplier->updated_at }}</td>
 
                 <td>
-                    <a href="/admin/brands/edit/{{ $brand->id }}" class="btn btn-info btn-sm">Sửa</a>
+                    <a href="/admin/suppliers/edit/{{ $supplier->id }}" class="btn btn-info btn-sm">Sửa</a>
 
-                    <form action="/admin/brands/destroy/{{ $brand->id }}" method="POST" class="d-inline">
+                    <form action="/admin/suppliers/destroy/{{ $supplier->id }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa thương hiệu này?')">Xóa</button>
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?')">Xóa
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -37,6 +37,6 @@
         </tbody>
     </table>
     <div class="card-footer clearfix">
-        {!! $brands->links() !!}
+        {!! $suppliers->links() !!}
     </div>
 @endsection

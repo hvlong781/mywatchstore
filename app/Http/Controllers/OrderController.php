@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderStatusUpdate;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -64,11 +66,38 @@ class OrderController extends Controller
 
     public function cancel(Order $order)
     {
-        // Thực hiện logic hủy đơn hàng
-        $order->update(['status' => 'Đã hủy']);
+        try {
+            DB::beginTransaction();
 
-        // Redirect hoặc trả về thông báo thành công
-        return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+            // Lấy danh sách chi tiết đơn hàng
+            $orderDetails = $order->orderDetails;
+
+            // Duyệt qua danh sách chi tiết đơn hàng và hoàn trả số lượng sản phẩm
+            foreach ($orderDetails as $orderDetail) {
+                $product = Product::find($orderDetail->product_id);
+
+                // Kiểm tra xem sản phẩm có tồn tại không
+                if ($product) {
+                    // Tăng số lượng sản phẩm
+                    $product->quantity += $orderDetail->quantity;
+                    $product->save();
+                }
+            }
+
+            // Cập nhật trạng thái đơn hàng thành 'Đã hủy'
+            $order->update(['status' => 'Đã hủy']);
+
+            DB::commit();
+
+            // Redirect hoặc trả về thông báo thành công
+            return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+        } catch (\Exception $err) {
+            DB::rollBack();
+
+            // Redirect hoặc trả về thông báo lỗi
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng.');
+        }
     }
+
 
 }

@@ -15,4 +15,10 @@ class Supplier extends Model
         'phone',
         'website',
     ];
+
+    public function purchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
 }

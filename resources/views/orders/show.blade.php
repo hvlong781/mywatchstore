@@ -32,8 +32,12 @@
                 <h3>Đang chờ được xử lý</h3>
             @endif
 
+                <div class="m-t-20">
+                    @include('admin.alert')
+                </div>
+
             <!-- Hiển thị thông tin chi tiết đơn hàng -->
-            <div class="row m-t-20">
+            <div class="row m-t-15">
                 <div class="col-md-6">
                     <h4>Thông tin giao hàng</h4>
 {{--                    <p><strong>Ngày đặt hàng:</strong> {{ $order->created_at }}</p>--}}

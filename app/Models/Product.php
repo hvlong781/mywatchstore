@@ -35,4 +35,21 @@ class Product extends Model
     {
         return $this->hasMany(ProductReview::class);
     }
+
+    public function purchaseOrderDetails()
+    {
+        return $this->hasMany(PurchaseOrderDetail::class, 'product_id');
+    }
+
+    // Phương thức để giảm số lượng sản phẩm
+    public function decreaseQuantity($quantity)
+    {
+        $this->decrement('quantity', $quantity);
+    }
+
+    // Phương thức để tăng số lượng sản phẩm
+    public function increaseQuantity($quantity)
+    {
+        $this->increment('quantity', $quantity);
+    }
 }
