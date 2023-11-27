@@ -18,19 +18,15 @@
             <div class="content-wrapper">
 
                 @include('admin.alert')
+
                 <div class="row">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <h3 class="card-title">{{ $title }}</h3>
-
-                                @yield('content')
-                            </div>
-                        </div>
+                    <div class="col-md-12 grid-margin">
+                        <h3 class="card-title">{{ $title }}</h3>
                     </div>
-
                 </div>
+
+                @yield('content')
+
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->

@@ -75,4 +75,9 @@ class CartController extends Controller
         // Đặt hàng thành công
         return redirect()->back()->with('success', 'Đặt Hàng Thành Công');
     }
+
+    public function vnPayment(Request $request)
+    {
+
+    }
 }

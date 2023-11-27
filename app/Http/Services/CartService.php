@@ -163,6 +163,7 @@ class CartService
             $order->shipping_address = $request->address;
             $order->shipping_phone = $request->phone;
             $order->total_price = $request->total_price;
+            $order->payment_method = 'pay_on_delivery';
             $order->message = $request->message;
             $order->invoice_number = 'INV-' . time() . '-' . mt_rand(1000, 9999);
             $order->save();

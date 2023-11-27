@@ -5,6 +5,8 @@
         <div class="row w-100 mx-0">
             <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                    @include('admin.alert')
+
                     <div class="brand-logo">
                         <img src="/template/admin/images/logo.svg" alt="logo">
                     </div>
@@ -53,23 +55,39 @@
                             @endif
                         </div>
 
-                        <div class="form-group mb-2">
+                        {{-- <div class="form-group mb-2">
                             <button type="button" class="btn btn-block btn-google auth-form-btn g-login">
                                 <i class="ti-google mr-2"></i>Google
                             </button>
-                        </div>
+                        </div> --}}
 
-                        <div class="mb-2">
+                        {{-- <div class="mb-2">
                             <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                                 <i class="ti-facebook mr-2"></i>Facebook
                             </button>
-                        </div>
+                        </div> --}}
 
                         <div class="text-center mt-4 font-weight-light">
                             Bạn chưa có tài khoản?
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="text-primary">Đăng ký tài khoản</a>
                             @endif
+                        </div>
+
+                        <div class="text-center mt-1 font-weight-light">
+                            Hoặc
+                        </div>
+
+                        <div class="mb-2 mt-3">
+                            <a href="{{ url('/login/google') }}" class="btn btn-block btn-google auth-form-btn g-login">
+                                <i class="ti-google mr-2"></i>Google
+                            </a>
+                        </div>
+
+                        <div class="mb-2">
+                            <a href="#" class="btn btn-block btn-facebook auth-form-btn">
+                                <i class="ti-facebook mr-2"></i>Facebook
+                            </a>
                         </div>
                     </form>
                 </div>

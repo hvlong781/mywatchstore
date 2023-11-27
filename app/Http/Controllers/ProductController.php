@@ -20,6 +20,7 @@ class ProductController extends Controller
     public function index($id = '', $slug = '')
     {
         $product = $this->productService->show($id);
+        $product->increment('views');
         $productsMore = $this->productService->more($id);
 
         return view('products.content', [

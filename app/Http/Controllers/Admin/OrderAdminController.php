@@ -73,6 +73,19 @@ class OrderAdminController extends Controller
             return redirect()->back()->with('error', 'Không thể cập nhật trạng thái do chưa hoàn thành bước trước.');
         }
 
+        if ($status === 'Đã hủy') {
+            // Lấy chi tiết đơn hàng (sản phẩm đã đặt)
+            $orderDetails = $order->orderDetails;
+
+            // Lặp qua từng chi tiết đơn hàng để hoàn lại số lượng sản phẩm
+            foreach ($orderDetails as $orderDetail) {
+                // Lấy sản phẩm và cập nhật số lượng trong kho
+                $product = $orderDetail->product;
+                $product->quantity += $orderDetail->quantity;
+                $product->save();
+            }
+        }
+
         OrderStatusUpdate::create([
             'order_id' => $order->id,
             'status' => $status,

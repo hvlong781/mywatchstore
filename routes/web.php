@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\BrandAdminController;
 use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ProfileAdminController;
@@ -18,6 +19,9 @@ use App\Http\Controllers\Admin\PurchaseOrderController;
 
 Auth::routes();
 
+Route::get('/login/google', [LoginController::class, 'redirectToGoogle']);
+Route::get('/login/google/callback', [LoginController::class, 'handleGoogleCallback']);
+
 Route::middleware(['admin'])->group(function () {
     Route::prefix('admin')->group(function () {
 //        Route::get('/', [AdminController::class, 'index']);
@@ -27,7 +31,6 @@ Route::middleware(['admin'])->group(function () {
         #Profile
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileAdminController::class, 'index']);
-            Route::get('edit', [ProfileAdminController::class, 'show']);
             Route::post('update', [ProfileAdminController::class, 'update']);
         });
 
@@ -130,6 +133,8 @@ Route::post('/services/load-product', [MainController::class, 'loadProduct']);
 Route::get('danh-muc/{id}-{slug}.html', [\App\Http\Controllers\MenuController::class, 'index']);
 Route::get('san-pham/{id}-{slug}.html', [\App\Http\Controllers\ProductController::class, 'index']);
 
+
+#Customer
 Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('add-cart', [CartController::class, 'index']);
     Route::get('carts', [CartController::class, 'show']);
@@ -140,10 +145,13 @@ Route::middleware(['auth', 'customer'])->group(function () {
     #Order
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index']);
-        Route::get('view-detail/{order}', [OrderController::class, 'show']);
-        Route::post('view-detail/{order}/cancel', [OrderController::class, 'cancel']);
+        Route::get('/view-detail/{order}', [OrderController::class, 'show']);
+        Route::post('/view-detail/{order}/cancel', [OrderController::class, 'cancel']);
     });
 
     Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile']);
     Route::post('/profile/update', [\App\Http\Controllers\UserController::class, 'update']);
+
+    #VNpay
+    Route::get('vnpayment', [CartController::class, 'vnPayment']);
 });

@@ -3,7 +3,7 @@
 @extends('main')
 
 @section('content')
-    <div class="bg0 m-t-23 p-b-140 p-t-80">
+    <div class="bg0 m-t-29 p-b-140 p-t-80">
         <div class="container">
             @include('admin.alert')
             <div class="row justify-content-center">
@@ -15,7 +15,11 @@
                             <form method="POST" action="/profile/update" enctype="multipart/form-data" id="profileForm">
                                 <!-- Hiển thị avatar dưới dạng hình tròn -->
                                 <label for="avatarInput" class="profile-avatar mb-4">
-                                    <img src="storage/{{ auth()->user()->avatar }}" alt="Avatar" class="img-fluid rounded-circle" id="avatarPreview">
+                                    @php
+                                        $user = auth()->user();
+                                        $avatarPath = $user ? $user->avatar : null;
+                                    @endphp
+                                    <img src="{{ $avatarPath ? asset($avatarPath) : asset('storage/avatar.jpg') }}" alt="Avatar" class="img-fluid rounded-circle" id="avatarPreview">
                                     <div class="overlay">
                                         <i class="fa fa-camera"></i>
                                     </div>
@@ -24,29 +28,24 @@
 
                                 <!-- Input fields - Name, Email, Address, Phone -->
                                 <div class="form-group">
-                                    <label for="name">Name:</label>
+                                    {{-- <label for="name">Name:</label> --}}
                                     <input type="text" name="name" value="{{ auth()->user()->name }}" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" name="email" value="{{ auth()->user()->email }}" class="form-control" disabled>
+                                    {{-- <label for="address">Address:</label> --}}
+                                    <input type="text" name="address" value="{{ auth()->user()->address ?? '' }}" placeholder="Địa chỉ" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="address">Address:</label>
-                                    <input type="text" name="address" value="{{ auth()->user()->address ?? 'Not provided' }}" class="form-control" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phone">Phone:</label>
-                                    <input type="text" name="phone" value="{{ auth()->user()->phone ?? 'Not provided' }}" class="form-control" disabled>
+                                    {{-- <label for="phone">Phone:</label> --}}
+                                    <input type="text" name="phone" value="{{ auth()->user()->phone ?? '' }}" placeholder="Số điện thoại" class="form-control" disabled>
                                 </div>
 
                                 <!-- Nút chỉnh sửa và lưu -->
-                                <button type="button" class="btn btn-primary" onclick="toggleEdit()">Edit Profile</button>
-                                <button type="submit" class="btn btn-success d-none" id="saveBtn">Save Changes</button>
-                                <button type="button" class="btn btn-secondary d-none" onclick="cancelEdit()">Cancel</button>
+                                <button type="button" class="btn btn-primary" onclick="toggleEdit()">Chỉnh Sửa</button>
+                                <button type="submit" class="btn btn-success d-none" id="saveBtn">Lưu Thay Đổi</button>
+                                <button type="button" class="btn btn-secondary d-none" onclick="cancelEdit()">Trở Lại</button>
                                 @csrf
                             </form>
                         </div>

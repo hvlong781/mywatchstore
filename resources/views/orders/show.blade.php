@@ -44,6 +44,20 @@
                     <p><strong>Tên:</strong> {{ $order->user_name }}</p>
                     <p><strong>Số điện thoại:</strong> {{ $order->shipping_phone }}</p>
                     <p><strong>Địa chỉ:</strong> {{ $order->shipping_address }}</p>
+
+                    @php
+                        $payment_method = $order->payment_method;
+                        $paymentInfo = '';
+
+                        if ($payment_method == 'pay_on_delivery') {
+                            $paymentInfo = 'Thanh toán khi nhận hàng';
+                        }
+                        if ($payment_method == 'vnpayment') {
+                            $paymentInfo = 'Thanh toán qua VNPAY';
+                        }
+                    @endphp
+                    <p><strong>Phương thức thanh toán:</strong> {{ $paymentInfo }}</p>
+
                     <!-- Thêm các thông tin khác cần hiển thị -->
 
                     @if($order->status == 'Đang chờ xử lý')

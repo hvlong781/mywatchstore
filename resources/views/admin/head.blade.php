@@ -17,5 +17,8 @@
 <!-- inject:css -->
 <link rel="stylesheet" href="/template/admin/css/vertical-layout-light/style.css">
 <!-- endinject -->
+
+{{-- CDN --}}
+
 <link rel="shortcut icon" href="/template/admin/images/favicon.png" />
 <link rel="stylesheet" href="/template/admin/css/main.css">

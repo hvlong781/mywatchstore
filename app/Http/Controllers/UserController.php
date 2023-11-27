@@ -26,7 +26,6 @@ class UserController extends Controller
         // Validate form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -34,7 +33,6 @@ class UserController extends Controller
 
         // Update user data
         $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
         $user->address = $validatedData['address'];
         $user->phone = $validatedData['phone'];
 
@@ -47,13 +45,11 @@ class UserController extends Controller
 
             // Upload new avatar
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $avatarPath;
+            $user->avatar = 'storage/' . $avatarPath;
         }
 
         $user->save();
 
-        return redirect('/profile')->with('success', 'Profile updated successfully');
+        return redirect('/profile')->with('success', 'Cập nhật thành công!');
     }
-
-
 }

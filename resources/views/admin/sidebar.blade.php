@@ -82,7 +82,7 @@
 
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#suppliers" aria-expanded="false" aria-controls="charts">
-                <i class="ti-server menu-icon"></i>
+                <i class="ti-id-badge menu-icon"></i>
                 <span class="menu-title">Nhà Cung Cấp</span>
                 <i class="menu-arrow"></i>
             </a>
