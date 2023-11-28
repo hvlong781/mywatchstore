@@ -20,5 +20,5 @@
 
 {{-- CDN --}}
 
-<link rel="shortcut icon" href="/template/admin/images/favicon.png" />
+<link rel="shortcut icon" href="/storage/avatars/0GfAj9iMijLYdTNWYHoLzHds0ydjzfiprwSVzyJR.jpg" />
 <link rel="stylesheet" href="/template/admin/css/main.css">

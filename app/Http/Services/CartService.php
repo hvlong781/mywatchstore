@@ -164,6 +164,7 @@ class CartService
             $order->shipping_phone = $request->phone;
             $order->total_price = $request->total_price;
             $order->payment_method = 'pay_on_delivery';
+            $order->status_payment = '0';
             $order->message = $request->message;
             $order->invoice_number = 'INV-' . time() . '-' . mt_rand(1000, 9999);
             $order->save();
@@ -210,4 +211,73 @@ class CartService
         return true;
     }
 
+    public function vnPayment_service($request, $orderId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $carts = Session::get('carts');
+
+            if (is_null($carts)) {
+                return false;
+            }
+
+            $user = Auth::user();
+
+            $order = new Order();
+            $order->user_id = $user->id;
+            $order->status = 'Đang chờ xử lý';
+            $order->user_name = $request->name_vnp;
+            $order->user_email = $request->email_vnp;
+            $order->shipping_address = $request->address_vnp;
+            $order->shipping_phone = $request->phone_vnp;
+            $order->total_price = $request->total_vnpay;
+            $order->payment_method = 'vnpay';
+            $order->status_payment = '0';
+            $order->message = $request->message_vnp;
+            $order->invoice_number = $orderId;
+            $order->save();
+
+            $productId = array_keys($carts);
+            $products = Product::select('id', 'price', 'quantity')
+                ->whereIn('id', $productId)
+                ->where('active', 1)
+                ->get();
+
+            foreach ($carts as $productId => $quantity) {
+                $product = $products->firstWhere('id', $productId);
+                if ($product && $product->quantity >= $quantity) {
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->order_id = $order->id;
+                    $orderDetail->product_id = $product->id;
+                    $orderDetail->quantity = $quantity;
+                    $orderDetail->price = $product->price;
+                    $orderDetail->save();
+
+                    // Giảm số lượng sản phẩm từ kho
+                    $product->quantity -= $quantity;
+                    $product->save();
+                } else {
+                    // Nếu số lượng không đủ, hủy đơn đặt hàng và hiển thị thông báo lỗi
+                    DB::rollBack();
+                    session()->flash('error', 'Số lượng sản phẩm không đủ');
+                    return false;
+                }
+            }
+
+
+            DB::commit();
+            Session::flash('success', 'Đặt Hàng Thành Công');
+
+            SendMail::dispatch($request->email_vnp)->delay(now()->addSeconds(2));
+
+            Session::forget('carts');
+        } catch (\Exception $err) {
+            DB::rollBack();
+            session()->flash('error', 'Đặt Hàng Lỗi, Vui lòng thử lại sau');
+            return false;
+        }
+
+        return true;
+    }
 }

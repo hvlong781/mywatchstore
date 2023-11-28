@@ -12,6 +12,7 @@
                         <th>Mã Đơn Hàng</th>
                         <th>Tên Khách Hàng</th>
                         <th>Trạng Thái</th>
+                        <th>Thanh Toán</th>
                         <th>Ngày Đặt hàng</th>
                         <th style="width: 80px">&nbsp;</th>
                     </tr>
@@ -35,6 +36,7 @@
                                     {{ $order->status }}
                                 </span>
                             </td>
+                            <td>{{ $order->status_payment }}</td>
                             <td>{{ $order->created_at }}</td>
                             <td>
                                 <a class="btn btn-primary btn-xs" href="/admin/orders/view-detail/{{ $order->id }}">

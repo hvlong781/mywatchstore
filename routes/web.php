@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CategoryAdminController;
 use App\Http\Controllers\Admin\ProductAdminController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\PurchaseOrderController;
+use App\Http\Controllers\PaymentController;
 
 Auth::routes();
 
@@ -153,5 +154,9 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/profile/update', [\App\Http\Controllers\UserController::class, 'update']);
 
     #VNpay
-    Route::get('vnpayment', [CartController::class, 'vnPayment']);
+    Route::post('/vnpayment', [CartController::class, 'vnPayment']);
+    Route::get('/vnpayment/callback', [CartController::class, 'returnUrl']);
+
+    // Route::get('/payment', [PaymentController::class, 'createPayment']);
+    // Route::get('/payment/callback', [PaymentController::class, 'paymentCallback']);
 });

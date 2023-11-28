@@ -17,16 +17,25 @@
                                 @php
                                     $payment_method = $order->payment_method;
                                     $paymentInfo = '';
+                                    $payment_status = $order->status_payment;
+                                    $statusInfo = '';
+                                    if($payment_status == '0'){
+                                        $statusInfo = "Chưa thanh toán";
+                                    }
+                                    if($payment_status == '1'){
+                                        $statusInfo = "Đã thanh toán";
+                                    }
 
                                     if ($payment_method == 'pay_on_delivery') {
                                         $paymentInfo = 'Thanh toán khi nhận hàng';
                                     }
-                                    if ($payment_method == 'vnpayment') {
+                                    if ($payment_method == 'vnpay') {
                                         $paymentInfo = 'Thanh toán qua VNPAY';
                                     }
                                 @endphp
 
                                 <li>Phương thức thanh toán: <strong>{{ $paymentInfo }}</strong></li>
+                                <li>Trạng thái thanh toán: <strong>{{ $statusInfo }}</strong></li>
 
                             </ul>
                         </div>

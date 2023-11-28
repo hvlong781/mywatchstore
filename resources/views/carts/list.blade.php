@@ -113,46 +113,39 @@
 
                                             <div class="bor8 bg0 m-b-12">
                                                 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                                    name="name" placeholder="Tên khách Hàng"
+                                                    name="name" placeholder="Tên khách Hàng" id="name"
                                                     value="{{ $user->name }}"
                                                     required>
                                             </div>
 
                                             <div class="bor8 bg0 m-b-12">
                                                 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                                    name="phone" placeholder="Số Điện Thoại"
+                                                    name="phone" placeholder="Số Điện Thoại" id="phone"
                                                     value="{{ $user->phone }}"
                                                     required>
                                             </div>
 
                                             <div class="bor8 bg0 m-b-12">
                                                 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                                    name="address" placeholder="Địa Chỉ Giao Hàng"
+                                                    name="address" placeholder="Địa Chỉ Giao Hàng" id="address"
                                                     value="{{ $user->address }}" required>
                                             </div>
 
                                             <div class="bor8 bg0 m-b-12">
                                                 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                                    name="email" placeholder="Email Liên Hệ"
+                                                    name="email" placeholder="Email Liên Hệ" id="email"
                                                     value="{{ $user->email }}" required>
                                             </div>
 
                                             <input type="hidden" name="total_price" id="total_price" value="{{ $total }}">
 
                                             <div class="bor8 bg0 m-b-12">
-                                                <textarea class="cl8 plh3 size-111 p-lr-15" name="message">{{ $user->name }} thanh toán</textarea>
+                                                <textarea class="cl8 plh3 size-111 p-lr-15" id="message" name="message">{{ $user->name }} thanh toán</textarea>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-
-                                <a href="/vnpayment">
-                                    <button type="button" class="flex-c-m stext-101 cl0 size-116 bg5 bor14 hov-btn3 m-b-10 p-lr-15 trans-04 pointer">
-                                        Thanh Toán Qua VNPAY
-                                    </button>
-                                </a>
-
 
                                 <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                 Đặt Hàng
@@ -162,6 +155,27 @@
                     </div>
                     @csrf
                 </form>
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-4 p-r-90">
+                        <form action="/vnpayment" method="POST">
+                            @csrf
+
+                            <input type="hidden" name="total_vnpay" value="{{ $total }}" id="">
+                            <input type="hidden" name="name_vnp" id="name_vnp">
+                            <input type="hidden" name="phone_vnp" id="phone_vnp">
+                            <input type="hidden" name="address_vnp" id="address_vnp">
+                            <input type="hidden" name="email_vnp" id="email_vnp">
+                            <input type="hidden" name="message_vnp" id="message_vnp">
+
+                            <button name="redirect" type="submit" class="flex-c-m stext-101 cl0 size-116 bg5 bor14 hov-btn3 m-b-10 p-lr-15 trans-04 pointer">
+                                Thanh Toán Qua VNPAY
+                            </button>
+                        </form>
+                        {{-- <a href="/payment" class="btn btn-success">vnppay</a> --}}
+                    </div>
+                </div>
+
             </div>
     </div>
     @else
@@ -171,11 +185,31 @@
             <div class="text-center p-b-15"><h2>Giỏ hàng trống</h2></div>
         </div>
     @endif
-@endsection
 
-<script>
+    <script>
     function confirmDeletion() {
         return confirm("Bạn chắc chắn muốn xóa?");
     }
 
-</script>
+    var nameInput = document.getElementById('name');
+    var namevnpInput = document.getElementById('name_vnp');
+    var phoneInput = document.getElementById('phone');
+    var phonevnpInput = document.getElementById('phone_vnp');
+    var addressInput = document.getElementById('address');
+    var addressvnpInput = document.getElementById('address_vnp');
+    var emailInput = document.getElementById('email');
+    var emailvnpInput = document.getElementById('email_vnp');
+    var messageInput = document.getElementById('message');
+    var messagevnpInput = document.getElementById('message_vnp');
+
+    // Lấy giá trị của input và gán vào input hidden
+    namevnpInput.value = nameInput.value;
+    phonevnpInput.value = phoneInput.value;
+    addressvnpInput.value = addressInput.value;
+    emailvnpInput.value = emailInput.value;
+    messagevnpInput.value = messageInput.value;
+
+    </script>
+
+@endsection
+

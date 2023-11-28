@@ -86,6 +86,11 @@ class OrderAdminController extends Controller
             }
         }
 
+        if ($status === 'Đã giao') {
+            // Cập nhật giá trị cho order
+            $order->status_payment = 1;
+        }
+
         OrderStatusUpdate::create([
             'order_id' => $order->id,
             'status' => $status,
